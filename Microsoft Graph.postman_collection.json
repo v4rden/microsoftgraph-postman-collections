@@ -10216,6 +10216,240 @@
 					"_postman_isSubFolder": true
 				},
 				{
+					"name": "Extensions",
+					"item": [
+						{
+							"name": "Property",
+							"item": [
+								{
+									"name": "Get Extension Properties",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "7c7569ec-f2f5-4ffd-a73a-33bcfedbc6ce",
+												"exec": [
+													"try {",
+													"    if (responseBody.indexOf(\"InvalidAuthenticationToken\") !== -1)",
+													"    {",
+													"        console.log(\"You need to run *Get App-Only Access Token* request first.\");",
+													"    }",
+													"    else",
+													"    {",
+													"        if (pm.response.status === \"Forbidden\")",
+													"        {",
+													"            console.log(\"You need to add Application.Read.All, Application.ReadWrite.All, Application.ReadWrite.OwnedBy, Directory.Read.All in portal.azure.com and then grant admin consent in portal. And re-run *Application | Get App-Only Access Token* request to update access token. \");",
+													"            var applicationId = postman.getEnvironmentVariable(\"ApplicationId\");",
+													"            if(!applicationId){",
+													"                console.log(\"You need to run *Application | Get Application Id request first to populate ApplicationId environment variable\");",
+													"            }",
+													"        }",
+													"    }",
+													"}",
+													"catch (e) {",
+													"    console.log(e);",
+													"}"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AppAccessToken}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "https://graph.microsoft.com/v1.0/applications/{{ApplicationId}}/extensionProperties",
+											"protocol": "https",
+											"host": [
+												"graph",
+												"microsoft",
+												"com"
+											],
+											"path": [
+												"v1.0",
+												"applications",
+												"{{ApplicationId}}",
+												"extensionProperties"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Create Extension Property",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "a5e48ede-e551-49fc-a77f-dd594d061de7",
+												"exec": [
+													"try {",
+													"    if (responseBody.indexOf(\"InvalidAuthenticationToken\") !== -1)",
+													"    {",
+													"        console.log(\"You need to run *Get App-Only Access Token* request first.\");",
+													"    }",
+													"    else",
+													"    {",
+													"        if (pm.response.status === \"Forbidden\")",
+													"        {",
+													"            console.log(\"You need to add Application.Read.All, Application.ReadWrite.All, Application.ReadWrite.OwnedBy, Directory.Read.All in portal.azure.com and then grant admin consent in portal. And re-run *Application | Get App-Only Access Token* request to update access token. \");",
+													"            var applicationId = postman.getEnvironmentVariable(\"ApplicationId\");",
+													"            if(!applicationId){",
+													"                console.log(\"You need to run *Application | Get Application Id request first to populate ApplicationID environment variable\");",
+													"            }",
+													"        }",
+													"    }",
+													"}",
+													"catch (e) {",
+													"    console.log(e);",
+													"}"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AppAccessToken}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"name\": \"extensionName\",\n    \"dataType\": \"String or (Binary,Boolean,DateTime,Integer,LargeInteger)\",\n    \"targetObjects\": [\n    \t\"Application\",\n    \t\"User\",\n        \"Group\",\n        \"Organization\",\n        \"Device\"\n    ]\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://graph.microsoft.com/v1.0/applications/{{ApplicationId}}/extensionProperties",
+											"protocol": "https",
+											"host": [
+												"graph",
+												"microsoft",
+												"com"
+											],
+											"path": [
+												"v1.0",
+												"applications",
+												"{{ApplicationId}}",
+												"extensionProperties"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Get Application Id",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "c1bfb5d2-2eae-44d6-ac3f-6794b940e4b4",
+										"exec": [
+											"try {",
+											"    if (responseBody.indexOf(\"InvalidAuthenticationToken\") !== -1)",
+											"    {",
+											"        console.log(\"You need to run *Get App-Only Access Token* request first.\");",
+											"    }",
+											"    else",
+											"    {",
+											"        if (pm.response.status === \"Forbidden\")",
+											"        {",
+											"            console.log(\"You need to add Application.Read.All, Application.ReadWrite.All, Application.ReadWrite.OwnedBy, Directory.Read.All in portal.azure.com and then grant admin consent in portal. And re-run *Application | Get App-Only Access Token* request to update access token. \");",
+											"        }",
+											"        else",
+											"        {",
+											"            var json = JSON.parse(responseBody);",
+											"            postman.setEnvironmentVariable(\"ApplicationId\", json.value[0].id);",
+											"        }",
+											"    }",
+											"}",
+											"catch (e) {",
+											"    console.log(e);",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AppAccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://graph.microsoft.com/v1.0/applications?$select=id&$filter=appId eq '{{ClientID}}'",
+									"protocol": "https",
+									"host": [
+										"graph",
+										"microsoft",
+										"com"
+									],
+									"path": [
+										"v1.0",
+										"applications"
+									],
+									"query": [
+										{
+											"key": "$select",
+											"value": "id"
+										},
+										{
+											"key": "$filter",
+											"value": "appId eq '{{ClientID}}'"
+										}
+									]
+								},
+								"description": "Populate environment variable with unique identifier for the application."
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
 					"name": "Get App-Only Access Token",
 					"event": [
 						{

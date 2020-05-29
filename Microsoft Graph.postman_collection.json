@@ -10239,10 +10239,10 @@
 													"        if (pm.response.status === \"Forbidden\")",
 													"        {",
 													"            console.log(\"You need to add Application.Read.All, Application.ReadWrite.All, Application.ReadWrite.OwnedBy, Directory.Read.All in portal.azure.com and then grant admin consent in portal. And re-run *Application | Get App-Only Access Token* request to update access token. \");",
-													"            var applicationId = postman.getEnvironmentVariable(\"ApplicationId\");",
-													"            if(!applicationId){",
-													"                console.log(\"You need to run *Application | Get Application Id request first to populate ApplicationId environment variable\");",
-													"            }",
+													"        }",
+													"        var applicationId = postman.getEnvironmentVariable(\"ApplicationId\");",
+													"        if(!applicationId){",
+													"            console.log(\"You need to run *Application | Extension | Get Application Id request first to populate ApplicationID environment variable\");",
 													"        }",
 													"    }",
 													"}",
@@ -10302,11 +10302,11 @@
 													"    {",
 													"        if (pm.response.status === \"Forbidden\")",
 													"        {",
-													"            console.log(\"You need to add Application.Read.All, Application.ReadWrite.All, Application.ReadWrite.OwnedBy, Directory.Read.All in portal.azure.com and then grant admin consent in portal. And re-run *Application | Get App-Only Access Token* request to update access token. \");",
-													"            var applicationId = postman.getEnvironmentVariable(\"ApplicationId\");",
-													"            if(!applicationId){",
-													"                console.log(\"You need to run *Application | Get Application Id request first to populate ApplicationID environment variable\");",
-													"            }",
+													"            console.log(\"You need to add Application.Read.All, Application.ReadWrite.All, Application.ReadWrite.OwnedBy, Directory.Read.All in portal.azure.com and then grant admin consent in portal. And re-run *Application | Get App-Only Access Token* request to update access token. \");            ",
+													"        }",
+													"        var applicationId = postman.getEnvironmentVariable(\"ApplicationId\");",
+													"        if(!applicationId){",
+													"            console.log(\"You need to run *Application | Extension | Get Application Id request first to populate ApplicationID environment variable\");",
 													"        }",
 													"    }",
 													"}",
@@ -10318,9 +10318,6 @@
 											}
 										}
 									],
-									"protocolProfileBehavior": {
-										"disableBodyPruning": true
-									},
 									"request": {
 										"auth": {
 											"type": "bearer",
@@ -10332,7 +10329,7 @@
 												}
 											]
 										},
-										"method": "GET",
+										"method": "POST",
 										"header": [
 											{
 												"key": "Content-Type",
